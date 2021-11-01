@@ -22,9 +22,10 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import Timer from './Timer.vue'
+import Timer from './Timer.vue';
 export default defineComponent({
     name:"Form",
+    emits: ['toSaveTask'],
     components: {
         Timer
     },
@@ -35,8 +36,10 @@ export default defineComponent({
     },
     methods: {
         finishTask(timeElapsed: number) : void {
-            console.log('Tempo da tarefa', timeElapsed)
-            console.log('Descrição da tarefa', this.description)
+            this.$emit('toSaveTask', {
+                durationInSeconds: timeElapsed,
+                description: this.description
+            })
             this.description = ''
         }
     }
