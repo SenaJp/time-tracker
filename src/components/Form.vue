@@ -10,59 +10,34 @@
                 type="text"
                 class="input"
                 placeholder="Qual tarefa você deseja iniciar?"
+                v-model="description"
             />
             </div>
     <div class="column">
-        <div
-            class="is-flex is-align-itemns-center is-fustify-content-space-between"
-        >
-        <section>
-            <strong>
-                {{ elapsedTime }}
-            </strong>
-        </section>
-        <button class="button" @click="start">
-            <span class="icon">
-                <i class="fas fa-play"></i>
-            </span>
-            <span>Play</span>
-        </button>
-        <button class="button" @click="finish">
-            <span class="icon">
-                <i class="fas fa-stop"></i>
-            </span>
-            <span>Stop</span>
-        </button>
-        </div>
+        <Timer @timerFinish="finishTask"/>
         </div>
         </div>
         </div>
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue"
-
+import { defineComponent } from "vue";
+import Timer from './Timer.vue'
 export default defineComponent({
-    name: 'Form',
+    name:"Form",
+    components: {
+        Timer
+    },
     data() {
         return {
-            timeInSeconds: 0,
-            stopwatch: 0
-        }
-    },
-    computed: {
-        elapsedTime() : string {
-            return new Date(this.timeInSeconds * 1000).toISOString().substr(11,8)
+            description: ''
         }
     },
     methods: {
-        start () {
-            this.stopwatch = setInterval(() => {
-                this.timeInSeconds += 1
-            }, 1000)
-        },
-        finish () {
-            clearInterval(this.stopwatch)
+        finishTask(timeElapsed: number) : void {
+            console.log('Tempo da tarefa', timeElapsed)
+            console.log('Descrição da tarefa', this.description)
+            this.description = ''
         }
     }
 });
