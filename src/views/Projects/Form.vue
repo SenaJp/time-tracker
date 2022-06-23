@@ -1,6 +1,5 @@
 <template>
-    <section class="projects">
-        <h1>Projetos</h1>
+    <section>
         <form @submit.prevent="save">
             <div class="field">
                 <label for="projectName"
@@ -67,9 +66,3 @@ export default defineComponent({
     }
 })
 </script>
-
-<style scoped>
-.projects {
-    padding: 1.25rem;
-}
-</style>

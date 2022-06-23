@@ -1,29 +1,36 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router"
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Tasks from '../views/Tasks.vue'
 import Projects from '../views/Projects.vue'
-import Form from "../views/Projects/Form.vue";
+import Form from '../views/Projects/Form.vue';
+import List from '../views/Projects/List.vue';
 
 const routes: RouteRecordRaw[] = [
   {
-    path: "/",
-    name: "Tasks",
+    path: '/',
+    name: 'Tasks',
     component: Tasks,
   },
   {
-    path: "/projects",
-    name: "Projects",
+    path: '/projects',
     component: Projects,
-  },
-  {
-    path: "/projects/new",
-    name: "New Project",
-    component: Form,
-  },
-  {
-    path: "/projects/:id",
-    name: "Edit Project",
-    component: Form,
-    props: true
+    children: [
+      {
+        path: '',
+        name: 'Projects',
+        component: List,
+      },
+      {
+        path: 'new',
+        name: 'New Project',
+        component: Form,
+      },
+      {
+        path: ':id',
+        name: 'Edit Project',
+        component: Form,
+        props: true,
+      },
+    ],
   },
 ];
 
