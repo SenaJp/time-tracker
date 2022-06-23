@@ -27,6 +27,17 @@ import { defineComponent } from "vue";
 import { useStore } from "@/store";
 export default defineComponent({
     name: 'Form',
+    props: {
+        id: {
+            type: String
+        }
+    },
+    mounted() {
+        if (this.id) {
+            const project = this.store.state.projects.find(proj => proj.id == this.id)
+            this.projectName = project?.name || ''
+        }
+    },
     data() {
         return {
             projectName: "",
@@ -35,9 +46,17 @@ export default defineComponent({
 
     methods: {
         save() {
-            this.store.commit('ADD_PROJECT', this.projectName)
-            this.projectName = '';
-            this.$router.push('/projetos')
+            if (this.id) {
+                this.store.commit('EDIT_PROJECT', {
+                    id: this.id,
+                    name: this.projectName,
+                })
+            } else {
+                // 
+                this.store.commit('ADD_PROJECT', this.projectName)
+            }
+            this.projectName = "";
+            this.$router.push('/projects')
         }
     },
     setup() {
