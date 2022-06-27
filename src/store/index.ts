@@ -23,6 +23,9 @@ export const store = createStore<State>({
         'EDIT_PROJECT'(state, project: IProject) {
             const index = state.projects.findIndex(proj => proj.id == project.id)
             state.projects[index] = project
+        },
+        'DELETE_PROJECT'(state, id: string) {
+            state.projects = state.projects.filter(proj => proj.id != id)
         }
     }
 });

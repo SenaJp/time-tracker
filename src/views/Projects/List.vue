@@ -29,6 +29,11 @@
                                 <i class="fas fa-pencil-alt"></i>
                             </span>
                         </router-link>
+                        <button class="button ml-2 is-danger" @click="destroy(project.id)">
+                            <span class="icon is-small">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                        </button>
                     </td>
                 </tr>
             </tbody>
@@ -41,10 +46,18 @@ import { computed, defineComponent } from "vue";
 import { useStore } from "@/store";
 export default defineComponent({
     name: 'List',
+
+    methods: {
+        destroy(id: string) {
+            this.store.commit('DELETE_PROJECT', id)
+        }
+    },
+
     setup() {
         const store = useStore()
         return {
-            projects: computed(() => store.state.projects)
+            projects: computed(() => store.state.projects),
+            store
         }
     }
 })
