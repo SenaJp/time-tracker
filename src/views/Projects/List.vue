@@ -44,12 +44,14 @@
 <script lang="ts">
 import { computed, defineComponent } from "vue";
 import { useStore } from "@/store";
+import { DELETE_PROJECT } from "@/store/mutations-type"
+
 export default defineComponent({
     name: 'List',
 
     methods: {
         destroy(id: string) {
-            this.store.commit('DELETE_PROJECT', id)
+            this.store.commit(DELETE_PROJECT, id)
         }
     },
 
