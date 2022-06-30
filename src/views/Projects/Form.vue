@@ -25,8 +25,10 @@
 import { defineComponent } from "vue";
 import { useStore } from "@/store";
 
-import { EDIT_PROJECT, ADD_PROJECT, NOTIFY } from "@/store/mutations-type"
+import { EDIT_PROJECT, ADD_PROJECT} from "@/store/mutations-type"
 import { NotifyType } from "@/interfaces/INotifications";
+import useNotifier from "@/hooks/notifier"
+
 
 export default defineComponent({
     name: 'Form',
@@ -35,6 +37,7 @@ export default defineComponent({
             type: String
         }
     },
+
     mounted() {
         if (this.id) {
             const project = this.store.state.projects.find(proj => proj.id == this.id)
@@ -58,18 +61,16 @@ export default defineComponent({
                 this.store.commit(ADD_PROJECT, this.projectName)
             }
             this.projectName = "";
-            this.store.commit(NOTIFY, {
-                title: 'Um novo projeto foi salvo!',
-                text: 'Prontinho :)',
-                type: NotifyType.SUCCESS
-            })
+            this.notify(NotifyType.SUCCESS, 'Excelente!', 'O projeto foi cadastrado com sucesso!')
             this.$router.push('/projects')
-        }
+        },
     },
     setup() {
         const store = useStore()
+        const { notify } = useNotifier()
         return {
             store,
+            notify
         }
     }
 })
