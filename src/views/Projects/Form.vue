@@ -25,7 +25,8 @@
 import { defineComponent } from "vue";
 import { useStore } from "@/store";
 
-import { EDIT_PROJECT, ADD_PROJECT } from "@/store/mutations-type"
+import { EDIT_PROJECT, ADD_PROJECT, NOTIFY } from "@/store/mutations-type"
+import { NotifyType } from "@/interfaces/INotifications";
 
 export default defineComponent({
     name: 'Form',
@@ -57,6 +58,11 @@ export default defineComponent({
                 this.store.commit(ADD_PROJECT, this.projectName)
             }
             this.projectName = "";
+            this.store.commit(NOTIFY, {
+                title: 'Um novo projeto foi salvo!',
+                text: 'Prontinho :)',
+                type: NotifyType.SUCCESS
+            })
             this.$router.push('/projects')
         }
     },
