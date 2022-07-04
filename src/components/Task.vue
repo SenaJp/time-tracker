@@ -12,6 +12,7 @@
             </div>
         </div>
     </Box>
+    
 </template>
 
 <script lang="ts">
